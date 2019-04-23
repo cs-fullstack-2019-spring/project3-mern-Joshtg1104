@@ -26,7 +26,7 @@ var createHash = function(password){
   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   console.log("Home page");
   console.log(req.session);
   console.log(req.session.username);
@@ -51,6 +51,15 @@ router.get('/logout', (req, res, next) => {
     console.log("Doesn't have session");
     res.send("Not logged in");
   }
+});
+
+router.get('/postList', (req, res, next) =>{
+    UserAccount.find({}, (error, results) => {
+        if(error)
+            res.send(error);
+        else
+            res.send(results);
+    })
 });
 
 
@@ -145,6 +154,7 @@ passport.use('signup', new LocalStrategy(
             newUser.email = req.body.email;
             newUser.username = req.body.username;
             newUser.password = createHash(password);
+            newUser.image = req.body.image;
 
             // save the user
             newUser.save(function(err) {
@@ -203,15 +213,14 @@ router.get('/grabToDo', (req, res)=>{
 });
 
 //ToDo change this area to fetch for 'posts' in model that will have post area
-// This is from fetch '/users/addToDo' run from the client side as a post.
-router.post('/addPost', (req,res)=>{
+router.post('/addTweet', (req,res)=>{
   // Find the user sent in the req.body. Push ($push) the req.body.todoItem into the _todo (ignore the underscore) key to add to the existing array in _todo.
   UserAccount.findOneAndUpdate({username: req.body.username},
-      {$push: {post: req.body.todoItem}}, (errors, results)=>{
+      {$push: {post: req.body.post}}, (errors, results)=>{
         // If there was an error send the error
         if(errors) res.send(errors);
         // If it went through send "ADDED!!!"
-        else res.send("ADDED!!!");
+        else res.send("Tweet Tweet");
       });
 });
 

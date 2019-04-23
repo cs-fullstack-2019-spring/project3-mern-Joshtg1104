@@ -8,6 +8,7 @@ class SignIn extends Component {
         super(props);
         this.state={
             data:[],
+            image:""
         };
     }
 
@@ -24,6 +25,7 @@ class SignIn extends Component {
                 body: JSON.stringify({
                     username: e.target.username.value,
                     password: e.target.password.value,
+                    // image: e.target.image.value
                 }),
             })
             .then(data=>{return data.text()})
@@ -37,8 +39,12 @@ class SignIn extends Component {
 
     render() {
         if(this.props.userLogInfo.signedIn){
+            console.log(this.props + "A");
             return(
                 <div>
+                    {/*<img src="LeeMan" alt="" */}
+                    **{this.props.userLogInfo.image}**
+                    {/*<img src={this.props.userLogInfo.image} alt=""/>*/}
                     <h1>Hello {this.props.userLogInfo.username}</h1>
                 </div>
             );

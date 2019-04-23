@@ -5,6 +5,7 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import './App.css';
 import LogOut from "./LogOut";
+import BlogTweets from "./BlogTweets";
 
 class HomePage extends Component {
 
@@ -13,26 +14,34 @@ class HomePage extends Component {
         this.state = {
             userLogInfo: {
                 username: null,
+                image: null,
                 signedIn: false,
             },
+            posts:[],
         };
     }
 
     componentDidMount() {
+        console.log(this.state.userLogInfo.signedIn);
         this.isThereUser();
+        this.displayPosts();
     }
 
     isThereUser() {
+        console.log("is There a User");
         fetch('/users')
             .then(data => {
                 return data.text();
             })
             .then(response => {
                 if (response) {
+                    console.log("Here is what the server is responding with");
+                    console.log(response);
                     this.setState(
                         {
                             userLogInfo: {
                                 username: response,
+                                image: response,
                                 signedIn: true,
                             }
                         });
@@ -41,6 +50,7 @@ class HomePage extends Component {
                         {
                             userLogInfo: {
                                 username: null,
+                                image: null,
                                 signedIn: false,
                             }
                         });
@@ -48,12 +58,19 @@ class HomePage extends Component {
             });
     }
 
-    userLoggedIn = (username, signedIn) => {
+    displayPosts=()=>{
+        fetch('/users/postList')
+            .then(posts => posts.json())
+            .then(postData=> this.setState({posts: postData}))
+    };
+
+    userLoggedIn = (username, image, signedIn) => {
         console.log("Got It!");
-        // console.log(username + "&"+ signedIn);
+         console.log(username + " & " + " & " + signedIn);
         this.setState({
             userLogInfo: {
                 username: username,
+                image: image,
                 signedIn: signedIn,
             }
         });
@@ -62,6 +79,7 @@ class HomePage extends Component {
         this.setState({
             userLogInfo: {
                 username: null,
+                image: null,
                 signedIn: false,
             }
         });
@@ -76,6 +94,17 @@ class HomePage extends Component {
 
     render() {
         // console.log(this.state.signedIn + "work ");
+        let postList = this.state.posts.map(
+            (post) => {
+                return(
+                    <div>
+                        <p>{post.username}</p>
+                        <p>{post.post}</p>
+                        <hr/>
+                    </div>
+                )
+            }
+        );
         if (this.state.userLogInfo.signedIn === false) {
             return (
                 <div>
@@ -94,6 +123,7 @@ class HomePage extends Component {
                         <Route exact path='/userprofile' component={UserProfile}/>
                         <Route exact path='/signup' component={()=><SignUp/>}/>
                     </Router>
+                    {postList}
                 </div>
             )
         }
@@ -108,9 +138,10 @@ class HomePage extends Component {
                         <Link to='/logout' onClick={this.userLogOut}>Log Out</Link>
 
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
-                        <Route exact path='/userprofile' component={UserProfile}/>
+                        <Route exact path='/userprofile' component={()=>{return <BlogTweets userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         <Route path='/logout' component={() => <LogOut/>}/>
                     </Router>
+                    {postList}
                 </div>
             )
         }
