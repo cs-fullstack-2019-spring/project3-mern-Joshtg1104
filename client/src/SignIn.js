@@ -4,12 +4,12 @@ import './App.css';
 
 class SignIn extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state={
-    //         data:[],
-    //     };
-    // }
+    constructor(props) {
+        super(props);
+        this.state={
+            data:[],
+        };
+    }
 
     submitLogin=(e)=>{
         e.preventDefault();
@@ -36,7 +36,7 @@ class SignIn extends Component {
     };
 
     render() {
-        if(this.props.userLoggedIn){
+        if(this.props.userLogInfo.signedIn){
             return(
                 <div>
                     <h1>Hello {this.props.userLogInfo.username}</h1>
@@ -49,12 +49,17 @@ class SignIn extends Component {
                     <h1>Sign-In</h1>
                     <h3>Come on and Log In</h3>
                     <form onSubmit={this.submitLogin}>
-                        <label> Username:
-                            <input type="text" name='username' placeholder="Enter username..." autoFocus/>
-                        </label>
-                        <label> Password:
-                            <input type="text" name='password' placeholder="Password here..."/>
-                        </label>
+                        <div>
+                            <label> Username:
+                                <input type="text" name='username' placeholder="Enter username..." autoFocus/>
+                            </label>
+                        </div>
+                        <div>
+                            <label> Password:
+                                <input type="password" name='password' placeholder="Password here..."/>
+                            </label>
+                        </div>
+                        <br/>
                         <button>Sign-In</button>
                     </form>
                     {this.state.data}
