@@ -28,8 +28,10 @@ class SignIn extends Component {
                     // image: e.target.image.value
                 }),
             })
-            .then(data=>{return data.text()})
+            .then(data=>data.json())
             .then(data=>{
+                console.log("Here is data");
+                console.log(data);
                 if(data)
                     return this.props.userLoggedIn(data, true);
                 else
@@ -43,8 +45,8 @@ class SignIn extends Component {
             return(
                 <div>
                     {/*<img src="LeeMan" alt="" */}
-                    **{this.props.userLogInfo.image}**
-                    {/*<img src={this.props.userLogInfo.image} alt=""/>*/}
+                    {/*{this.props.userLogInfo.image}*/}
+                    <img src={this.props.userLogInfo.image} alt=""/>
                     <h1>Hello {this.props.userLogInfo.username}</h1>
                 </div>
             );

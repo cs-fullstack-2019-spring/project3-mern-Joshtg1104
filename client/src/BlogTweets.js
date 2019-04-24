@@ -31,7 +31,7 @@ class BlogTweets extends Component {
 
 
     render() {
-        if(!this.props.userLogInfo.signedIn){
+        if(!this.props.userLogInfo.signedIn===true){
             return(
                 <div>
                     <h1>SQUUAAAAAAWK!! LOG IN FIRST!</h1>
@@ -41,24 +41,24 @@ class BlogTweets extends Component {
         else{
             return(
                 <div>
-                    <h1>Welcome {this.props.userLogInfo.username}</h1>
+                    {/*<h1>Welcome {this.props.userLogInfo.username}</h1>*/}
                     <form onSubmit={this.submitTweet}>
                         <p>
                             <label htmlFor={"post"}>Add Post</label>
-                            <textarea id={"post"} name={"post"} placeholder={"Add Post..."} autoFocus/>
+                            <input id={"post"} type={"text"} name={"post"} placeholder={"Add Post..."} autoFocus/>
                         </p>
                         <button>SQUAWK</button>
                     </form>
                     {this.state.message}
                 </div>
-            )
+            );
         }
-        return (
-            <div className="App">
-                <h1>Blog Posts Here</h1>
-                <h3>Are you Signed In?</h3>
-            </div>
-        );
+        // return (
+        //     <div className="App">
+        //         <h1>Blog Posts Here</h1>
+        //         <h3>Are you Signed In?</h3>
+        //     </div>
+        // );
     }
 }
 

@@ -85,7 +85,7 @@ passport.use(new LocalStrategy(
           return done(null, false, { message: 'Incorrect password.' });
         }
         console.log("4");
-        console.log(user);
+        // console.log(user);
         return done(null, user, { user: user.username });
       });
     }
@@ -99,10 +99,23 @@ router.post('/login',
     // `req.user` contains the authenticated user.
 
     function(req, res) {
-      // console.log(req.body.user);
-      req.session.username=req.body.username;
-      console.log("Saving cookie");
-      res.send(req.body.username);
+    console.log("Finished authenticating");
+    UserAccount.findOne({username: req.body.username},(error, results)=>{
+        console.log(results);
+        // console.log("Here are request.user results");
+        // console.log(results.user);
+        if(error){
+            console.log("Error!!!");
+            res.send(error)
+        }
+        else{
+            // console.log(req.body.user);
+            req.session.username=req.body.username;
+            console.log("Saving cookie");
+            res.send({username: results.username,
+            image: results.image})
+        }
+        });
     });
 
 // **** I'm not running this right now because I want to use the user data
@@ -113,6 +126,7 @@ router.get('/loginsuccess', (req, res)=>{
 
 // If there is a failure check of an existing user
 router.get('/loginfail', (req, res)=>{
+    console.log("The user log in failed!!!");
   res.send(undefined)
 });
 
