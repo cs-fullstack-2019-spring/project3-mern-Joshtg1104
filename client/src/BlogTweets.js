@@ -33,6 +33,7 @@ class BlogTweets extends Component {
     render() {
         if(!this.props.userLogInfo.signedIn===true){
             return(
+                //returns this message
                 <div>
                     <h1>SQUUAAAAAAWK!! LOG IN FIRST!</h1>
                 </div>
@@ -40,6 +41,7 @@ class BlogTweets extends Component {
         }
         else{
             return(
+                //return form to post tweets
                 <div>
                     {/*<h1>Welcome {this.props.userLogInfo.username}</h1>*/}
                     <form onSubmit={this.submitTweet}>

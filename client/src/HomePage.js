@@ -24,9 +24,9 @@ class HomePage extends Component {
     componentDidMount() {
         console.log(this.state.userLogInfo.signedIn);
         this.isThereUser();
-        this.displayPosts();
+        // this.displayPosts();
     }
-
+    //checks to see if there is a user
     isThereUser() {
         console.log("is There a User");
         fetch('/users')
@@ -58,11 +58,11 @@ class HomePage extends Component {
             });
     }
 
-    displayPosts=()=>{
-        fetch('/users/postList')
-            .then(posts => posts.json())
-            .then(postData=> this.setState({posts: postData}))
-    };
+    // displayPosts=()=>{
+    //     fetch('/users/postList')
+    //         .then(posts => posts.json())
+    //         .then(postData=> this.setState({posts: postData}))
+    // };
 
     // mappedPostFunction(){
     //     let postArray = [];
@@ -88,6 +88,7 @@ class HomePage extends Component {
     //     this.setState({mappedPosts: postArray});
     // }
 
+    //set state for after user is logged in
     userLoggedIn = (data, signedIn) => {
         console.log("Got It!");
          console.log(data.username + " & " + " & " + signedIn);
@@ -99,6 +100,7 @@ class HomePage extends Component {
             }
         });
     };
+    //sets state for userLogOut
     userLogOut = () => {
         this.setState({
             userLogInfo: {
@@ -107,6 +109,7 @@ class HomePage extends Component {
                 signedIn: false,
             }
         });
+        //fetches logout endpoint from user route
         fetch('/users/logout')
             .then(data => {
                 return data.text()
@@ -117,34 +120,35 @@ class HomePage extends Component {
     };
 
     render() {
-        console.log(this.state.userLogInfo.signedIn + "work ");
-        console.log(this.state.posts);
-        let postList = [];
-        if (this.state.posts[0]){
-            postList = this.state.posts[0].post.map(
-                (post) => {
-                    return (
-                        <div>
-                            {/*<p>{post}</p>*/}
-                            <p>{this.state.posts[0].username}</p>
-                            <p>{post}</p>
-                            <hr/>
-                        </div>
-                    )
-                }
-            );
-    }
+    //     console.log(this.state.userLogInfo.signedIn + "work ");
+    //     console.log(this.state.posts);
+    //     let postList = [];
+    //     if (this.state.posts[0]){
+    //         postList = this.state.posts[0].post.map(
+    //             (post, index) => {
+    //                 return (
+    //                     <div key={index}>
+    //                         {/*<p>{post}</p>*/}
+    //                         <p>{this.state.posts[0].username}</p>
+    //                         <p>{post}</p>
+    //                         <hr/>
+    //                     </div>
+    //                 )
+    //             }
+    //         );
+    // }
         if (this.state.userLogInfo.signedIn === false) {
             return (
                 <div>
                     <Router>
                         <h1>Welcome Visitor</h1>
-
+                        {/*render links for the different pages*/}
                         <Link to='/'>Home</Link>
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/signup'>Sign-Up</Link>
                         {/*<Link to='/signin'>Log In</Link>*/}
 
+                        {/*routes connect links to components*/}
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         {/*<Route exact path='/signin' component={() => {*/}
                         {/*    return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>*/}
@@ -152,7 +156,7 @@ class HomePage extends Component {
                         <Route exact path='/userprofile' component={UserProfile}/>
                         <Route exact path='/signup' component={()=><SignUp/>}/>
                     </Router>
-                    {postList}
+                    {/*{postList}*/}
                 </div>
             )
         }
@@ -170,7 +174,7 @@ class HomePage extends Component {
                         <Route exact path='/userprofile' component={()=>{return <BlogTweets userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         <Route path='/logout' component={() => <LogOut/>}/>
                     </Router>
-                    {postList}
+                    {/*{postList}*/}
                 </div>
             )
         }

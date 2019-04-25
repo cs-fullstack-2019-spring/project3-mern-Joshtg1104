@@ -10,7 +10,7 @@ class SignUp extends Component {
             notice:"",
         };
     }
-
+    //fetches newuser from user route so that new user account can be created
     submitSignUp=(e)=>{
         e.preventDefault();
         fetch('/users/newuser', {
@@ -35,6 +35,7 @@ class SignUp extends Component {
 
     render() {
         return (
+            //returns form that user uses to create account
             <div className="App">
                 <h1>Welcome Visitor</h1>
                 <h3>Do you wish to create an account?</h3>

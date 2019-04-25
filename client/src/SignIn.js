@@ -8,10 +8,15 @@ class SignIn extends Component {
         super(props);
         this.state={
             data:[],
-            image:""
+            image:"",
+            posts: [],
         };
     }
-
+    //mounts displayPosts function
+    componentDidMount() {
+        this.displayPosts();
+    }
+    //event handler that that fetches user/login route to allow user to login
     submitLogin=(e)=>{
         e.preventDefault();
         console.log("Loggingg In... Logged In");
@@ -38,8 +43,33 @@ class SignIn extends Component {
                     return this.props.userLoggedIn(data, false)
             });
     };
+    //fetches postlist from user route which displays all post made on site
+    displayPosts=()=>{
+        fetch('/users/postList')
+            .then(posts => posts.json())
+            .then(postData=> this.setState({posts: postData}))
+    };
 
     render() {
+        console.log(this.props.userLogInfo.signedIn + "work ");
+        console.log(this.state.posts);
+        //maps all post from user with index 0
+        let postList = [];
+            if (this.state.posts[0]){
+                postList = this.state.posts[0].post.map(
+                    (post, index) => {
+                        return (
+                            <div key={index}>
+                                {/*<p>{post}</p>*/}
+                                <p>{this.state.posts[0].username}</p>
+                                <p>{post}</p>
+                                <hr/>
+                            </div>
+                        )
+                    }
+                );
+        }
+
         if(this.props.userLogInfo.signedIn){
             console.log(this.props + "A");
             return(
@@ -48,6 +78,7 @@ class SignIn extends Component {
                     {/*{this.props.userLogInfo.image}*/}
                     <img src={this.props.userLogInfo.image} alt=""/>
                     <h1>Hello {this.props.userLogInfo.username}</h1>
+                    {postList}
                 </div>
             );
         }
@@ -71,6 +102,7 @@ class SignIn extends Component {
                         <button>Sign-In</button>
                     </form>
                     {this.state.data}
+                    {postList}
                 </div>
             );
         }
