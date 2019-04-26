@@ -23,6 +23,7 @@ class BlogTweets extends Component {
             body: JSON.stringify({
                 username: this.props.userLogInfo.username,
                 post: e.target.post.value,
+                image: e.target.image.value,
             }),
         })
             .then(data=>data.text())
@@ -48,6 +49,10 @@ class BlogTweets extends Component {
                         <p>
                             <label htmlFor={"post"}>Add Post</label>
                             <input id={"post"} type={"text"} name={"post"} placeholder={"Add Post..."} autoFocus/>
+                        </p>
+                        <p>
+                            <label htmlFor={"image"}>Image URL: </label>
+                            <input id={"image"} type="text" name="image" placeholder="Image URL Here..."/>
                         </p>
                         <button>SQUAWK</button>
                     </form>
