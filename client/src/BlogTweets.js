@@ -12,6 +12,10 @@ class BlogTweets extends Component {
         }
     };
 
+    componentDidMount() {
+        this.displayPosts();
+    }
+
     submitTweet=(e)=>{
         e.preventDefault();
         fetch('/users/addTweet', {
@@ -31,6 +35,13 @@ class BlogTweets extends Component {
     };
 
 
+    displayPosts = () => {
+        fetch('/users/userList')
+            .then(posts => posts.json())
+            .then(postData => this.setState({userposts: postData}))
+    };
+
+
     render() {
         if(!this.props.userLogInfo.signedIn===true){
             return(
@@ -41,24 +52,69 @@ class BlogTweets extends Component {
             );
         }
         else{
-            return(
-                //return form to post tweets
-                <div>
-                    {/*<h1>Welcome {this.props.userLogInfo.username}</h1>*/}
-                    <form onSubmit={this.submitTweet}>
-                        <p>
-                            <label htmlFor={"post"}>Add Post</label>
-                            <input id={"post"} type={"text"} name={"post"} placeholder={"Add Post..."} autoFocus/>
-                        </p>
-                        <p>
-                            <label htmlFor={"image"}>Image URL: </label>
-                            <input id={"image"} type="text" name="image" placeholder="Image URL Here..."/>
-                        </p>
-                        <button>SQUAWK</button>
-                    </form>
-                    {this.state.message}
-                </div>
-            );
+            if (this.state.userposts) {
+                let userList = this.state.userposts.map((user) => {
+                        return user.post.map((tweet) => {
+                                return (
+                                    <div>
+                                        <p><strong>{user.username}</strong></p>
+                                        <img src={user.image} alt="photo"/>
+                                        <p>{tweet}</p>
+                                        <hr/>
+                                    </div>
+                                )
+                            }
+                        )
+                    }
+                );
+                return(
+                    //return form to post tweets
+                    <div>
+
+                        {/*<h1>Welcome {this.props.userLogInfo.username}</h1>*/}
+                        <form onSubmit={this.submitTweet}>
+                            <p>
+                                <label htmlFor={"post"}>Add Post</label>
+                                <input id={"post"} type={"text"} name={"post"} placeholder={"Add Post..."} autoFocus/>
+                            </p>
+                            <p>
+                                <label htmlFor={"image"}>Image URL: </label>
+                                <input id={"image"} type="text" name="image" placeholder="Image URL Here..."/>
+                            </p>
+                            <button>SQUAWK</button>
+                        </form>
+                        {this.state.message}
+                        {userList}
+                    </div>
+                );
+            }
+            else{
+                return (
+                    <div>
+                        <h3>No Posts</h3>
+                    </div>
+                )
+            }
+            // return(
+            //     //return form to post tweets
+            //     <div>
+            //
+            //         {/*<h1>Welcome {this.props.userLogInfo.username}</h1>*/}
+            //         <form onSubmit={this.submitTweet}>
+            //             <p>
+            //                 <label htmlFor={"post"}>Add Post</label>
+            //                 <input id={"post"} type={"text"} name={"post"} placeholder={"Add Post..."} autoFocus/>
+            //             </p>
+            //             <p>
+            //                 <label htmlFor={"image"}>Image URL: </label>
+            //                 <input id={"image"} type="text" name="image" placeholder="Image URL Here..."/>
+            //             </p>
+            //             <button>SQUAWK</button>
+            //         </form>
+            //         {this.state.message}
+            //
+            //     </div>
+            // );
         }
         // return (
         //     <div className="App">

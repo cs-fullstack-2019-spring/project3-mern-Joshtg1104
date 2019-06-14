@@ -11,6 +11,7 @@ var UserAccountSchema = new Schema(
         password: {type: String, required: true, max: 100},
         image: {type: String, max: 1000},
         post: [{type: String, max: 530}],
+        date: {type: Date}
     }
 );
 

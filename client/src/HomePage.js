@@ -41,7 +41,7 @@ class HomePage extends Component {
                         {
                             userLogInfo: {
                                 username: response,
-                                // image: response,
+                                image: response,
                                 signedIn: true,
                             }
                         });
@@ -50,7 +50,7 @@ class HomePage extends Component {
                         {
                             userLogInfo: {
                                 username: null,
-                                // image: null,
+                                image: null,
                                 signedIn: false,
                             }
                         });
@@ -58,35 +58,6 @@ class HomePage extends Component {
             });
     }
 
-    // displayPosts=()=>{
-    //     fetch('/users/postList')
-    //         .then(posts => posts.json())
-    //         .then(postData=> this.setState({posts: postData}))
-    // };
-
-    // mappedPostFunction(){
-    //     let postArray = [];
-    //     console.log(this.state.postData + "B");
-    //     let subArray = [];
-    //     if(this.state.postData)
-    //         subArray = this.state.postData;
-    //     if(subArray.length>0){
-    //         postArray = this.state.postData.map(
-    //             (eachItem, index) => {
-    //                 return(<div key={index}>
-    //                     <p>{eachItem.userLogInfo.username}</p>
-    //                     <p>{eachItem.userLogInfo.post}</p>
-    //                 </div>)
-    //             }
-    //         );
-    //         console.log(postArray);
-    //     }
-    //     else{
-    //         console.log("no data for " + this.state.userLogInfo.username);
-    //         postArray = [];
-    //     }
-    //     this.setState({mappedPosts: postArray});
-    // }
 
     //set state for after user is logged in
     userLoggedIn = (data, signedIn) => {
@@ -105,7 +76,7 @@ class HomePage extends Component {
         this.setState({
             userLogInfo: {
                 username: null,
-                // image: null,
+                image: null,
                 signedIn: false,
             }
         });
@@ -120,23 +91,7 @@ class HomePage extends Component {
     };
 
     render() {
-    //     console.log(this.state.userLogInfo.signedIn + "work ");
-    //     console.log(this.state.posts);
-    //     let postList = [];
-    //     if (this.state.posts[0]){
-    //         postList = this.state.posts[0].post.map(
-    //             (post, index) => {
-    //                 return (
-    //                     <div key={index}>
-    //                         {/*<p>{post}</p>*/}
-    //                         <p>{this.state.posts[0].username}</p>
-    //                         <p>{post}</p>
-    //                         <hr/>
-    //                     </div>
-    //                 )
-    //             }
-    //         );
-    // }
+
         if (this.state.userLogInfo.signedIn === false) {
             return (
                 <div>

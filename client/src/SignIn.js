@@ -8,7 +8,7 @@ class SignIn extends Component {
         super(props);
         this.state = {
             data: [],
-            image: "",
+            image: null,
             posts: null,
         };
     }
@@ -58,7 +58,6 @@ class SignIn extends Component {
         //maps all post from user with index 0
 
         let postList = [];
-        let user = [];
         if (this.state.posts) {
             console.log("user");
             console.log(this.state.posts);
@@ -71,6 +70,7 @@ class SignIn extends Component {
                             return (
                                 <div>
                                     <p><strong>{user.username}</strong></p>
+                                    <img src={user.image} alt="photo"/>
                                     <p>{tweet}</p>
                                     <hr/>
                                 </div>

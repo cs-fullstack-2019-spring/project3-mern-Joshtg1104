@@ -61,6 +61,14 @@ router.get('/postList', (req, res, next) =>{
             res.send(results);
     })
 });
+router.get('/userList', (req, res, next) =>{
+    UserAccount.find({username: req.session.username}, (error, results) => {
+        if(error)
+            res.send(error);
+        else
+            res.send(results);
+    })
+});
 
 
 
