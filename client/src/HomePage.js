@@ -102,6 +102,7 @@ class HomePage extends Component {
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/signup'>Sign-Up</Link>
                         {/*<Link to='/signin'>Log In</Link>*/}
+                        <br/>
                         <form>
                             <input type="text" placeholder={"Search"}/>
                             <button>Submit</button>
@@ -128,6 +129,7 @@ class HomePage extends Component {
                         <Link to='/'>Home</Link>
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/logout' onClick={this.userLogOut}>Log Out</Link>
+                        <br/>
                         <form>
                             <input type="text" placeholder={"Search"}/>
                             <button>Submit</button>
