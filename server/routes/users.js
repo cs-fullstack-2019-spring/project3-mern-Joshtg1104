@@ -69,6 +69,16 @@ router.get('/userList', (req, res, next) =>{
             res.send(results);
     })
 });
+router.get('/findTweet', (req, res, next) =>{
+    UserAccount.find({post: req.session.post}, (error, results) => {
+        console.log(results);
+        console.log(error);
+        if(error)
+            res.send(error);
+        else
+            res.send(results);
+    })
+});
 
 
 

@@ -102,6 +102,10 @@ class HomePage extends Component {
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/signup'>Sign-Up</Link>
                         {/*<Link to='/signin'>Log In</Link>*/}
+                        <form>
+                            <input type="text" placeholder={"Search"}/>
+                            <button>Submit</button>
+                        </form>
 
                         {/*routes connect links to components*/}
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
@@ -124,6 +128,10 @@ class HomePage extends Component {
                         <Link to='/'>Home</Link>
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/logout' onClick={this.userLogOut}>Log Out</Link>
+                        <form>
+                            <input type="text" placeholder={"Search"}/>
+                            <button>Submit</button>
+                        </form>
 
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         <Route exact path='/userprofile' component={()=>{return <BlogTweets userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
