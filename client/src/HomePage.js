@@ -134,6 +134,7 @@ class HomePage extends Component {
                             <input type="text" placeholder={"Search"}/>
                             <button>Submit</button>
                         </form>
+                        <br/>
 
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         <Route exact path='/userprofile' component={()=>{return <BlogTweets userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
