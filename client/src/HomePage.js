@@ -102,6 +102,11 @@ class HomePage extends Component {
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/signup'>Sign-Up</Link>
                         {/*<Link to='/signin'>Log In</Link>*/}
+                        <br/>
+                        <form>
+                            <input type="text" placeholder={"Search"}/>
+                            <button>Submit</button>
+                        </form>
 
                         {/*routes connect links to components*/}
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
