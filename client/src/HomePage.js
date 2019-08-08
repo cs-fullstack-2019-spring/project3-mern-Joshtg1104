@@ -124,6 +124,11 @@ class HomePage extends Component {
                         <Link to='/'>Home</Link>
                         <Link to='/userprofile'>Profile</Link>
                         <Link to='/logout' onClick={this.userLogOut}>Log Out</Link>
+                        <form>
+                            <input type="text" placeholder={"Search"}/>
+                            <button>Submit</button>
+                        </form>
+                        <br/>
 
                         <Route exact path='/' component={()=>{return <SignIn userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
                         <Route exact path='/userprofile' component={()=>{return <BlogTweets userLogInfo={this.state.userLogInfo} userLoggedIn={this.userLoggedIn}/>}}/>
